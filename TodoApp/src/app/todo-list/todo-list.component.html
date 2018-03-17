@@ -1,0 +1,86 @@
+<div id="mainContent" class="mainContent">
+  <h1>Welcome to TechCrat's Todo List</h1>
+  <div class="clearfix">
+    <!-- Todo Items List -->
+    <div class="left-section">
+      <h2>List of Todo Items</h2>
+      <div id="todoLists">
+        <div>
+          <h3>Cooking</h3>
+          <p>Cook food for 8 people</p>
+          <i>Created By: Aadesh</i>
+          <i>Date: February 12, 2018</i>
+          <button class="editBtn fa" onclick="updateTodoItem(2723624)">Edit</button>
+          <button class="deleteBtn fa" onclick="deleteTodoItem(2723624)">Delete</button>
+        </div>
+        <div>
+          <h3>Grocery</h3>
+          <p>Get Milk and Bread</p>
+          <i>Created By: Bhumika</i>
+          <i>Date: February 13, 2018</i>
+          <button class="editBtn fa" onclick="updateTodoItem(45695678)">Edit</button>
+          <button class="deleteBtn fa" onclick="deleteTodoItem(45695678)">Delete</button>
+        </div>
+        <div>
+          <h3>Cleaning</h3>
+          <p>Kitchen area and bathtub</p>
+          <i>Created By: Aadesh</i>
+          <i>Date: February 14, 2018</i>
+          <button class="editBtn fa" onclick="updateTodoItem(18831029)">Edit</button>
+          <button class="deleteBtn fa" onclick="deleteTodoItem(18831029)">Delete</button>
+        </div>
+        <div>
+          <h3>Laundry</h3>
+          <p>Take the bedsheets and curtains</p>
+          <i>Created By: Bhumika</i>
+          <i>Date: February 15, 2018</i>
+          <button class="editBtn fa" onclick="updateTodoItem(89104175)">Edit</button>
+          <button class="deleteBtn fa" onclick="deleteTodoItem(89104175)">Delete</button>
+        </div>
+        <div>
+          <h3>Bills</h3>
+          <p>Pay the electricity and Wi-fi bills</p>
+          <i>Created By: Bhumika</i>
+          <i>Date: February 16, 2018</i>
+          <button class="editBtn fa" onclick="updateTodoItem(30037005)">Edit</button>
+          <button class="deleteBtn fa" onclick="deleteTodoItem(30037005)">Delete</button>
+        </div>
+      </div>
+    </div>
+    <!-- Add/Update Todo Item form -->
+    <div class="right-section">
+      <h2>Add/Update Todo Item</h2>
+      <form method="post" id="todoListForm" onsubmit="saveTodoList(event)">
+        <label for="title">
+          Title
+          <span class="required">*</span>
+        </label>
+        <input type="text" id="title" name="title" required="required">
+        <label for="todoItem">
+          Todo Item
+          <span class="required">*</span>
+        </label>
+        <textarea id="todoItem" name="todoItem" rows="3" required="required"></textarea>
+        <label for="author">
+          Author
+          <span class="required">*</span>
+        </label>
+        <select id="author" name="author">
+          <option value="Aadesh">Aadesh</option>
+          <option value="Bhumika">Bhumika</option>
+          <option value="Rohit">Rohit</option>
+          <option value="Meven">Meven</option>
+          <option value="Li">Li</option>
+        </select>
+        <label for="date">
+          Date
+          <span class="required">*</span>
+        </label>
+        <input type="date" id="date" name="date" required="required">
+        <input type="hidden" id="todoId" name="todoId" value="">
+        <input type="submit" name="action" value="Add Todo Item" id="addBtn" onclick="clicked='Add'">
+        <input type="submit" name="action" value="Update Todo Item" id="updateBtn" onclick="clicked='Update'">
+      </form>
+    </div>
+  </div>
+</div>
