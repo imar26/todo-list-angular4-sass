@@ -1,55 +1,24 @@
 <div id="mainContent" class="mainContent">
-  <h1>Welcome to TechCrat's Todo List</h1>
+  <h1>{{ mainHeader }}</h1>
   <div class="clearfix">
     <!-- Todo Items List -->
     <div class="left-section">
-      <h2>List of Todo Items</h2>
+      <h2>{{ leftTitle }}</h2>
       <div id="todoLists">
-        <div>
-          <h3>Cooking</h3>
-          <p>Cook food for 8 people</p>
-          <i>Created By: Aadesh</i>
-          <i>Date: February 12, 2018</i>
+        <div *ngFor = "let todo of todoLists">
+          <h3>{{ todo.title }}</h3>
+          <p>{{ todo.todoItem }}</p>
+          <i>Created By: {{ todo.author }}</i>
+          <i>Date: {{ todo.date }}</i>
           <button class="editBtn fa" onclick="updateTodoItem(2723624)">Edit</button>
           <button class="deleteBtn fa" onclick="deleteTodoItem(2723624)">Delete</button>
         </div>
-        <div>
-          <h3>Grocery</h3>
-          <p>Get Milk and Bread</p>
-          <i>Created By: Bhumika</i>
-          <i>Date: February 13, 2018</i>
-          <button class="editBtn fa" onclick="updateTodoItem(45695678)">Edit</button>
-          <button class="deleteBtn fa" onclick="deleteTodoItem(45695678)">Delete</button>
-        </div>
-        <div>
-          <h3>Cleaning</h3>
-          <p>Kitchen area and bathtub</p>
-          <i>Created By: Aadesh</i>
-          <i>Date: February 14, 2018</i>
-          <button class="editBtn fa" onclick="updateTodoItem(18831029)">Edit</button>
-          <button class="deleteBtn fa" onclick="deleteTodoItem(18831029)">Delete</button>
-        </div>
-        <div>
-          <h3>Laundry</h3>
-          <p>Take the bedsheets and curtains</p>
-          <i>Created By: Bhumika</i>
-          <i>Date: February 15, 2018</i>
-          <button class="editBtn fa" onclick="updateTodoItem(89104175)">Edit</button>
-          <button class="deleteBtn fa" onclick="deleteTodoItem(89104175)">Delete</button>
-        </div>
-        <div>
-          <h3>Bills</h3>
-          <p>Pay the electricity and Wi-fi bills</p>
-          <i>Created By: Bhumika</i>
-          <i>Date: February 16, 2018</i>
-          <button class="editBtn fa" onclick="updateTodoItem(30037005)">Edit</button>
-          <button class="deleteBtn fa" onclick="deleteTodoItem(30037005)">Delete</button>
-        </div>
-      </div>
+      </div> 
     </div>
+         
     <!-- Add/Update Todo Item form -->
     <div class="right-section">
-      <h2>Add/Update Todo Item</h2>
+      <h2>{{ rightTitle }}</h2>
       <form method="post" id="todoListForm" onsubmit="saveTodoList(event)">
         <label for="title">
           Title
@@ -66,11 +35,7 @@
           <span class="required">*</span>
         </label>
         <select id="author" name="author">
-          <option value="Aadesh">Aadesh</option>
-          <option value="Bhumika">Bhumika</option>
-          <option value="Rohit">Rohit</option>
-          <option value="Meven">Meven</option>
-          <option value="Li">Li</option>
+          <option *ngFor = "let author of authorList" value="{{ author }}">{{ author }}</option>
         </select>
         <label for="date">
           Date
