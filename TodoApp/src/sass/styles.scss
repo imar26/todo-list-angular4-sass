@@ -172,6 +172,12 @@ footer {
                 outline: 0;
             }
         }
+        .help-block {
+            display: block;
+            color: $red;
+            position: $relative;
+            top: -8px;
+        }
     }  
 }
 

@@ -22,31 +22,47 @@
       <form method="post" id="todoListForm" (ngSubmit)="saveTodoList()" #f="ngForm">
         <label for="title">
           Title
-          <span class="required">*</span>
+          <span class="required">*</span>    
         </label>
         <input type="text" ngModel id="title" name="title" #title="ngModel" required="required">
+        <span class="help-block" *ngIf="!title.valid && title.touched">
+          Please enter title!
+        </span>  
         <label for="todoItem">
           Todo Item
           <span class="required">*</span>
         </label>
         <textarea id="todoItem" ngModel name="todoItem" rows="3" #todoItem="ngModel" required="required"></textarea>
+        <span class="help-block" *ngIf="!todoItem.valid && todoItem.touched">
+          Please enter todoItem!
+        </span>
         <label for="author">
           Author
           <span class="required">*</span>
         </label>
-        <select id="author" ngModel #author="ngModel" name="author">
-          <option *ngFor = "let author of authorList"  value="{{ author }}">{{ author }}</option>
+        <select id="author" ngModel #author="ngModel" name="author" required="required">
+          <option *ngFor = "let author of authorList" value="{{ author }}">{{ author }}</option>
         </select>
+        <span class="help-block" *ngIf="!author.valid && author.touched">
+          Please select author!
+        </span>
         <label for="date">
           Date
           <span class="required">*</span>
         </label>
         <input type="date" id="date" ngModel #date="ngModel" name="date" required="required">
-        
+        <span class="help-block" *ngIf="!date.valid && date.touched">
+          Please enter date!
+        </span>
         <input type="hidden" id="todoId" ngModel #id="ngModel" name="todoId" value="">
-        <input type="submit" name="action" value="Add Todo Item" id="addBtn" onclick="clicked='Add'" [disabled]="!f.valid">
-        <input type="submit" name="action" value="Update Todo Item" id="updateBtn" onclick="clicked='Update'" [disabled]="!f.valid">
+        <input type="submit" name="action" value="Add/Update Todo Item" id="addBtn" [disabled]="!f.valid">
       </form>
+      <div *ngIf="addItem">
+        <h4 class="success">{{success}}</h4>
+      </div>
+      <div *ngIf="updateItem">
+        <h4 class="success">{{success}}</h4>
+      </div>
     </div>
   </div>
 </div>
