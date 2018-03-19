@@ -44,8 +44,8 @@
         <input type="date" id="date" ngModel #date="ngModel" name="date" required="required">
         
         <input type="hidden" id="todoId" ngModel #id="ngModel" name="todoId" value="">
-        <input type="submit" name="action" value="Add Todo Item" id="addBtn" [disabled]="!f.valid">
-        <input type="submit" name="action" value="Update Todo Item" id="updateBtn" onclick="clicked='Update'">
+        <input type="submit" name="action" value="Add Todo Item" id="addBtn" onclick="clicked='Add'" [disabled]="!f.valid">
+        <input type="submit" name="action" value="Update Todo Item" id="updateBtn" onclick="clicked='Update'" [disabled]="!f.valid">
       </form>
     </div>
   </div>
