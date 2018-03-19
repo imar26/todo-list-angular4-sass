@@ -19,30 +19,30 @@
     <!-- Add/Update Todo Item form -->
     <div class="right-section">
       <h2>{{ rightTitle }}</h2>
-      <form method="post" id="todoListForm" onsubmit="saveTodoList(event)">
+      <form method="post" id="todoListForm" (ngSubmit)="saveTodoList()" #f="ngForm">
         <label for="title">
           Title
           <span class="required">*</span>
         </label>
-        <input type="text" id="title" name="title" required="required">
+        <input type="text" ngModel id="title" name="title" #title="ngModel" required="required">
         <label for="todoItem">
           Todo Item
           <span class="required">*</span>
         </label>
-        <textarea id="todoItem" name="todoItem" rows="3" required="required"></textarea>
+        <textarea id="todoItem" ngModel name="todoItem" rows="3" #todoItem="ngModel" required="required"></textarea>
         <label for="author">
           Author
           <span class="required">*</span>
         </label>
-        <select id="author" name="author">
-          <option *ngFor = "let author of authorList" value="{{ author }}">{{ author }}</option>
+        <select id="author" ngModel #author="ngModel" name="author">
+          <option *ngFor = "let author of authorList"  value="{{ author }}">{{ author }}</option>
         </select>
         <label for="date">
           Date
           <span class="required">*</span>
         </label>
-        <input type="date" id="date" name="date" required="required">
-        <input type="hidden" id="todoId" name="todoId" value="">
+        <input type="date" id="date" ngModel #date="ngModel" name="date" required="required">
+        <input type="hidden" id="todoId" ngModel #id="ngModel" name="todoId" value="">
         <input type="submit" name="action" value="Add Todo Item" id="addBtn" onclick="clicked='Add'">
         <input type="submit" name="action" value="Update Todo Item" id="updateBtn" onclick="clicked='Update'">
       </form>
