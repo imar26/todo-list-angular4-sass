@@ -11,7 +11,7 @@
           <i>Created By: {{ todo.author }}</i>
           <i>Date: {{ todo.date }}</i>
           <button class="editBtn fa" onclick="updateTodoItem(2723624)">Edit</button>
-          <button class="deleteBtn fa" onclick="deleteTodoItem(2723624)">Delete</button>
+          <button class="deleteBtn fa" (click) = "deleteTodoItem(todo.id)">Delete</button>
         </div>
       </div> 
     </div>

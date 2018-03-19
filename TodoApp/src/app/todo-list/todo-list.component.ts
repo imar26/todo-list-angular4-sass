@@ -76,6 +76,15 @@ export class TodoListComponent implements OnInit {
         }
         this.todoLists.push(todo);
     }
+    deleteTodoItem(id){
+        let i=0;
+        for(let arr of this.todoLists){
+           if(arr.id == id){
+               this.todoLists.splice(i, 1);
+           }
+           i++;
+        }
+    }
     constructor() { }
 
     ngOnInit() {
