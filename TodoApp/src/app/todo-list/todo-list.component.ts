@@ -85,6 +85,14 @@ export class TodoListComponent implements OnInit {
            i++;
         }
     }
+    updateTodoItem(todo){
+        
+        this.id = todo.id;
+        this.title = todo.title;
+        this.todoItem = todo.todoItem;
+        this.author = todo.author;
+        this.date = todo.date;
+    }
     constructor() { }
 
     ngOnInit() {
