@@ -60,10 +60,13 @@ export class TodoListComponent implements OnInit {
         this.todoItem = this.todoForm.value.todoItem.trim();
         this.author = this.todoForm.value.author;
         this.date = this.todoForm.value.date;
+        // Check if title and todo item is empty
         if (this.title != "" && this.todoItem != "") {
             if (this.todoForm.value.todoId) {
                 this.todoId = this.todoForm.value.todoId;
                 let idArray: Array<string> = [];
+
+                // Update data of selected todo item in the list
                 for (let item of this.todoLists) {
                     idArray.push(item.todoId);
                     if (item.todoId == this.todoId) {
@@ -73,6 +76,8 @@ export class TodoListComponent implements OnInit {
                         item.date = this.date;                        
                     }
                 }
+
+                // Add todo item in the list if it has been deleted
                 if (idArray.indexOf(this.todoId) < 0) {
                     let todo = {
                         "todoId": this.todoId,
@@ -89,6 +94,7 @@ export class TodoListComponent implements OnInit {
                     this.updateItem = false;
                 }, 2000);
             } else {
+                // Add todo item in the list
                 this.todoId = Math.floor(Math.random() * 100000000);
                 let todo = {
                     "todoId": this.todoId,
@@ -106,6 +112,7 @@ export class TodoListComponent implements OnInit {
             }
             this.todoForm.reset();
         } else {
+            // No TODO items
             this.enterVal = true;
             this.error = "Fields cannot be left empty";
             let timeoutId = setTimeout(() => {
