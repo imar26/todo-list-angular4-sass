@@ -21,6 +21,7 @@ export class TodoListComponent implements OnInit {
     addItem: boolean;
     updateItem: boolean;
     listEmpty: boolean;
+    enterVal: boolean;
     success: string;
     error: string;
     mainHeader: string = "Welcome to TechCrat's Todo List";
@@ -37,57 +38,74 @@ export class TodoListComponent implements OnInit {
         for(let item of this.todoLists) {
             item["todoId"] = Math.floor(Math.random() * 100000000);
         }
+
+        // Calculate height
+        var windowHeight = window.innerHeight;
+        var headerHeight = document.getElementById('header').clientHeight;
+        var footerHeight = document.getElementById('footer').clientHeight;
+
+        // Append total height to the window screen
+        var totalHeight = windowHeight - headerHeight - footerHeight;
+        document.getElementById("mainContent").setAttribute('style', 'min-height: '+totalHeight+'px');
     }
 
     // Function called on add/update TODO Item
     saveTodoList() {
         this.listEmpty = false;
-        this.title = this.todoForm.value.title;
-        this.todoItem = this.todoForm.value.todoItem;
+        this.title = this.todoForm.value.title.trim();
+        this.todoItem = this.todoForm.value.todoItem.trim();
         this.author = this.todoForm.value.author;
-        this.date = this.todoForm.value.date;  
-        if(this.todoForm.value.todoId) {
-            this.todoId = this.todoForm.value.todoId;
-            for(let item of this.todoLists) {
-                if(item.todoId == this.todoId) {
-                    item.title = this.title;
-                    item.todoItem = this.todoItem;
-                    item.author = this.author;
-                    item.date = this.date;
-                }                              
-            }
-            if(this.todoLists.length < 1) {
+        this.date = this.todoForm.value.date;
+        if(this.title != "" && this.todoItem != "") {  
+            if(this.todoForm.value.todoId) {
+                this.todoId = this.todoForm.value.todoId;
+                for(let item of this.todoLists) {
+                    if(item.todoId == this.todoId) {
+                        item.title = this.title.trim();
+                        item.todoItem = this.todoItem.trim();
+                        item.author = this.author;
+                        item.date = this.date;
+                    }                              
+                }
+                if(this.todoLists.length < 1) {
+                    let todo = {
+                        "todoId": this.todoId,
+                        "title": this.title.trim(),
+                        "todoItem": this.todoItem.trim(),
+                        "author": this.author,
+                        "date": this.date
+                    }
+                    this.todoLists.push(todo);
+                }
+                this.updateItem = true;
+                this.success = "TODO Item updated successfully.";
+                let timeoutId = setTimeout(() => {
+                    this.updateItem = false;
+                }, 2000);
+            } else {
+                this.todoId = Math.floor(Math.random() * 100000000);
                 let todo = {
                     "todoId": this.todoId,
-                    "title": this.title,
-                    "todoItem": this.todoItem,
+                    "title": this.title.trim(),
+                    "todoItem": this.todoItem.trim(),
                     "author": this.author,
                     "date": this.date
                 }
                 this.todoLists.push(todo);
-            }
-            this.updateItem = true;
-            this.success = "TODO Item updated successfully.";
-            let timeoutId = setTimeout(() => {
-                this.updateItem = false;
-            }, 2000);
+                this.addItem = true;
+                this.success = "TODO Item added successfully.";
+                let timeoutId = setTimeout(() => {
+                    this.addItem = false;
+                }, 2000);
+            }        
+            this.todoForm.reset();
         } else {
-            this.todoId = Math.floor(Math.random() * 100000000);
-            let todo = {
-                "todoId": this.todoId,
-                "title": this.title,
-                "todoItem": this.todoItem,
-                "author": this.author,
-                "date": this.date
-            }
-            this.todoLists.push(todo);
-            this.addItem = true;
-            this.success = "TODO Item added successfully.";
+            this.enterVal = true;
+            this.error = "Fields cannot be left empty";
             let timeoutId = setTimeout(() => {
-                this.addItem = false;
+                this.enterVal = false;
             }, 2000);
-        }        
-        this.todoForm.reset();
+        }
     }
 
     // Delete TODO Item
