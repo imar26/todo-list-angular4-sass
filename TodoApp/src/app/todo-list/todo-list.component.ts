@@ -20,7 +20,9 @@ export class TodoListComponent implements OnInit {
     date: any;
     addItem: boolean;
     updateItem: boolean;
+    listEmpty: boolean;
     success: string;
+    error: string;
     mainHeader: string = "Welcome to TechCrat's Todo List";
     leftTitle: string = "List of Todo Items";
     rightTitle: string = "Add/Update Todo Item";    
@@ -39,10 +41,11 @@ export class TodoListComponent implements OnInit {
 
     // Function called on add/update TODO Item
     saveTodoList() {
+        this.listEmpty = false;
         this.title = this.todoForm.value.title;
         this.todoItem = this.todoForm.value.todoItem;
         this.author = this.todoForm.value.author;
-        this.date = this.todoForm.value.date;
+        this.date = this.todoForm.value.date;  
         if(this.todoForm.value.todoId) {
             this.todoId = this.todoForm.value.todoId;
             for(let item of this.todoLists) {
@@ -51,7 +54,17 @@ export class TodoListComponent implements OnInit {
                     item.todoItem = this.todoItem;
                     item.author = this.author;
                     item.date = this.date;
+                }                              
+            }
+            if(this.todoLists.length < 1) {
+                let todo = {
+                    "todoId": this.todoId,
+                    "title": this.title,
+                    "todoItem": this.todoItem,
+                    "author": this.author,
+                    "date": this.date
                 }
+                this.todoLists.push(todo);
             }
             this.updateItem = true;
             this.success = "TODO Item updated successfully.";
@@ -85,6 +98,12 @@ export class TodoListComponent implements OnInit {
                 this.todoLists.splice(i, 1);
             }
             i++;
+        }
+        if(this.todoLists.length < 1) {
+            this.listEmpty = true;
+            this.error = "No TODO Items available";
+        } else {
+            this.listEmpty = false;
         }
     }
 
