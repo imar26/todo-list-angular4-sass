@@ -13,7 +13,7 @@ export class TodoListComponent implements OnInit {
 
     //properties
     clicked: string;
-    id: any;
+    todoId: any;
     title: string;
     todoItem: string;
     author: string;
@@ -33,53 +33,55 @@ export class TodoListComponent implements OnInit {
         // Get TODO Lists from JSON File and Display it
         this.todoLists = require('../../todoLists.json');
         for(let item of this.todoLists) {
-            item["id"] = Math.floor(Math.random() * 100000000);
+            item["todoId"] = Math.floor(Math.random() * 100000000);
         }
-        this.todoForm.value.author = "Aadesh";
     }
 
     // Function called on add/update TODO Item
     saveTodoList() {
-        if(this.todoForm.value.id) {
-            this.id = this.todoForm.value.id;
-        } else {
-            this.id = Math.floor(Math.random() * 100000000);
-        }
         this.title = this.todoForm.value.title;
         this.todoItem = this.todoForm.value.todoItem;
         this.author = this.todoForm.value.author;
         this.date = this.todoForm.value.date;
-        let todo = {
-            "id": this.id,
-            "title": this.title,
-            "todoItem": this.todoItem,
-            "author": this.author,
-            "date": this.date
-        }
-        this.todoLists.push(todo);
-        this.todoForm.reset();
-        if(this.todoForm.value.id) {
+        if(this.todoForm.value.todoId) {
+            this.todoId = this.todoForm.value.todoId;
+            for(let item of this.todoLists) {
+                if(item.todoId == this.todoId) {
+                    item.title = this.title;
+                    item.todoItem = this.todoItem;
+                    item.author = this.author;
+                    item.date = this.date;
+                }
+            }
             this.updateItem = true;
-            this.success = "TODO Item update successfully.";
+            this.success = "TODO Item updated successfully.";
             let timeoutId = setTimeout(() => {
                 this.updateItem = false;
-            }, 2500);
-            clearTimeout(timeoutId);
+            }, 2000);
         } else {
+            this.todoId = Math.floor(Math.random() * 100000000);
+            let todo = {
+                "todoId": this.todoId,
+                "title": this.title,
+                "todoItem": this.todoItem,
+                "author": this.author,
+                "date": this.date
+            }
+            this.todoLists.push(todo);
             this.addItem = true;
             this.success = "TODO Item added successfully.";
             let timeoutId = setTimeout(() => {
                 this.addItem = false;
-            }, 2500);
-            clearTimeout(timeoutId);
-        }
+            }, 2000);
+        }        
+        this.todoForm.reset();
     }
 
     // Delete TODO Item
     deleteTodoItem(id) {
         let i = 0;
         for (let arr of this.todoLists) {
-            if (arr.id == id) {
+            if (arr.todoId == id) {
                 this.todoLists.splice(i, 1);
             }
             i++;
@@ -88,12 +90,7 @@ export class TodoListComponent implements OnInit {
 
     // Update TODO Item
     updateTodoItem(todo) {
-
-        this.id = todo.id;
-        this.title = todo.title;
-        this.todoItem = todo.todoItem;
-        this.author = todo.author;
-        this.date = todo.date;
+        this.todoForm.setValue(todo);
     }
 
 }
