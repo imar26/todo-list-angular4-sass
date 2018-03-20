@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-todo-list',
@@ -26,18 +27,21 @@ export class TodoListComponent implements OnInit {
     error: string;
     mainHeader: string = "Welcome to TechCrat's Todo List";
     leftTitle: string = "List of Todo Items";
-    rightTitle: string = "Add/Update Todo Item";    
-    todoLists: Array<any>;    
+    rightTitle: string = "Add/Update Todo Item";
+    todoLists: any;
     authorList: Array<any> = ['Aadesh', 'Bhumika', 'Rohit', 'Meven', 'Li'];
 
-    constructor() { }
+    constructor(private http: HttpClient) { }
 
     ngOnInit() {
         // Get TODO Lists from JSON File and Display it
-        this.todoLists = require('../../todoLists.json');
-        for(let item of this.todoLists) {
-            item["todoId"] = Math.floor(Math.random() * 100000000);
-        }
+        this.http.get('http://localhost:4200/assets/todoLists.json')
+            .subscribe(data => {
+                this.todoLists = data;
+                for (let item of this.todoLists) {
+                    item["todoId"] = Math.floor(Math.random() * 100000000);
+                }
+            });               
 
         // Calculate height
         var windowHeight = window.innerHeight;
@@ -46,7 +50,7 @@ export class TodoListComponent implements OnInit {
 
         // Append total height to the window screen
         var totalHeight = windowHeight - headerHeight - footerHeight;
-        document.getElementById("mainContent").setAttribute('style', 'min-height: '+totalHeight+'px');
+        document.getElementById("mainContent").setAttribute('style', 'min-height: ' + totalHeight + 'px');
     }
 
     // Function called on add/update TODO Item
@@ -56,18 +60,18 @@ export class TodoListComponent implements OnInit {
         this.todoItem = this.todoForm.value.todoItem.trim();
         this.author = this.todoForm.value.author;
         this.date = this.todoForm.value.date;
-        if(this.title != "" && this.todoItem != "") {  
-            if(this.todoForm.value.todoId) {
+        if (this.title != "" && this.todoItem != "") {
+            if (this.todoForm.value.todoId) {
                 this.todoId = this.todoForm.value.todoId;
-                for(let item of this.todoLists) {
-                    if(item.todoId == this.todoId) {
+                for (let item of this.todoLists) {
+                    if (item.todoId == this.todoId) {
                         item.title = this.title.trim();
                         item.todoItem = this.todoItem.trim();
                         item.author = this.author;
                         item.date = this.date;
-                    }                              
+                    }
                 }
-                if(this.todoLists.length < 1) {
+                if (this.todoLists.length < 1) {
                     let todo = {
                         "todoId": this.todoId,
                         "title": this.title.trim(),
@@ -97,7 +101,7 @@ export class TodoListComponent implements OnInit {
                 let timeoutId = setTimeout(() => {
                     this.addItem = false;
                 }, 2000);
-            }        
+            }
             this.todoForm.reset();
         } else {
             this.enterVal = true;
@@ -117,7 +121,7 @@ export class TodoListComponent implements OnInit {
             }
             i++;
         }
-        if(this.todoLists.length < 1) {
+        if (this.todoLists.length < 1) {
             this.listEmpty = true;
             this.error = "No TODO Items available";
         } else {
