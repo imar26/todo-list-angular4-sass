@@ -35,7 +35,7 @@ export class TodoListComponent implements OnInit {
 
     ngOnInit() {
         // Get TODO Lists from JSON File and Display it
-        this.http.get('http://localhost:4200/assets/todoLists.json')
+        this.http.get('./assets/todoLists.json')
             .subscribe(data => {
                 this.todoLists = data;
                 for (let item of this.todoLists) {
