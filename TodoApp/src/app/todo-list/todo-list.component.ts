@@ -63,15 +63,17 @@ export class TodoListComponent implements OnInit {
         if (this.title != "" && this.todoItem != "") {
             if (this.todoForm.value.todoId) {
                 this.todoId = this.todoForm.value.todoId;
+                let idArray: Array<string> = [];
                 for (let item of this.todoLists) {
+                    idArray.push(item.todoId);
                     if (item.todoId == this.todoId) {
                         item.title = this.title.trim();
                         item.todoItem = this.todoItem.trim();
                         item.author = this.author;
-                        item.date = this.date;
+                        item.date = this.date;                        
                     }
                 }
-                if (this.todoLists.length < 1) {
+                if (idArray.indexOf(this.todoId) < 0) {
                     let todo = {
                         "todoId": this.todoId,
                         "title": this.title.trim(),
