@@ -9,7 +9,7 @@
           <h3>{{ todo.title }}</h3>
           <p>{{ todo.todoItem }}</p>
           <i>Created By: {{ todo.author }}</i>
-          <i>Date: {{ todo.date }} </i>
+          <i>Date: {{ todo.date | date: 'longDate' }} </i>
           <button class="editBtn fa" (click)="updateTodoItem(todo)">Edit</button>
           <button class="deleteBtn fa" (click)="deleteTodoItem(todo.todoId)">Delete</button>
         </div>

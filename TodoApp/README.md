@@ -6,7 +6,7 @@ Created a Todo List application where you can perform CRUD operations on a todo 
 
 - Angular 4
 - HTML5
-- SCSS
+- SASS
 - JavaScript
 
 ## Deployment

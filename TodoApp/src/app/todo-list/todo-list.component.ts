@@ -40,9 +40,8 @@ export class TodoListComponent implements OnInit {
                 this.todoLists = data;
                 for (let item of this.todoLists) {
                     item["todoId"] = Math.floor(Math.random() * 100000000);
-                    item["date"] = this.formatDate(item.date);
                 }
-            });               
+            });
 
         // Calculate height
         var windowHeight = window.innerHeight;
@@ -74,7 +73,7 @@ export class TodoListComponent implements OnInit {
                         item.title = this.title.trim();
                         item.todoItem = this.todoItem.trim();
                         item.author = this.author;
-                        item.date = this.date;                        
+                        item.date = this.date;
                     }
                 }
 
@@ -143,12 +142,4 @@ export class TodoListComponent implements OnInit {
     updateTodoItem(todo) {
         this.todoForm.setValue(todo);
     }
-    formatDate(date) {
-        var split = date.toString().split("-");
-        var month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        var m = month[split[1] - 1];
-        var dateFormat = m + " " + split[2] + ", " + split[0];
-        return dateFormat;
-    }
-
 }
