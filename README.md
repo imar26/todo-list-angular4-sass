@@ -15,7 +15,6 @@ Created a Todo List application where you can perform CRUD operations on a todo 
 - HTML5
 - CSS3
 - JavaScript
-- Node.js
 
 ## Application Deployment
 
